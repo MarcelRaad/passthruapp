@@ -60,7 +60,7 @@ template<class Base>
 inline STDMETHODIMP CComObjectSharedRef<Base>::QueryInterface(REFIID iid,
 	void** ppvObject)
 {
-	return _InternalQueryInterface(iid, ppvObject);
+	return this->_InternalQueryInterface(iid, ppvObject);
 }
 
 template<class Base>
@@ -70,16 +70,16 @@ inline STDMETHODIMP_(ULONG) CComObjectSharedRef<Base>::AddRef()
 	{
 		m_punkRefCount->AddRef();
 	}
-	return InternalAddRef();
+	return this->InternalAddRef();
 }
 
 template<class Base>
 inline STDMETHODIMP_(ULONG) CComObjectSharedRef<Base>::Release()
 {
-	ULONG l = InternalRelease();
+	ULONG l = this->InternalRelease();
 	if (!l)
 	{
-		ReleaseAll();
+		this->ReleaseAll();
 	}
 	if (m_punkRefCount)
 	{
@@ -129,7 +129,7 @@ inline	CComPolyObjectSharedRef<Contained>::~CComPolyObjectSharedRef()
 template <class Contained>
 inline HRESULT CComPolyObjectSharedRef<Contained>::FinalConstruct()
 {
-	InternalAddRef();
+	this->InternalAddRef();
 	CComObjectRootEx<Contained::_ThreadModel::ThreadModelNoCS>::
 		FinalConstruct();
 	HRESULT hr;
@@ -142,7 +142,7 @@ inline HRESULT CComPolyObjectSharedRef<Contained>::FinalConstruct()
 	if (SUCCEEDED(hr))
 		hr = m_contained._AtlFinalConstruct();
 #endif
-	InternalRelease();
+	this->InternalRelease();
 	return hr;
 }
 
@@ -166,7 +166,7 @@ inline STDMETHODIMP CComPolyObjectSharedRef<Contained>::QueryInterface(
 	*ppvObject = NULL;
 
 	HRESULT hr = S_OK;
-	if (InlineIsEqualUnknown(iid))
+	if (this->InlineIsEqualUnknown(iid))
 	{
 		if (ppvObject == NULL)
 		{
@@ -196,13 +196,13 @@ inline STDMETHODIMP_(ULONG) CComPolyObjectSharedRef<Contained>::AddRef()
 	{
 		m_punkRefCount->AddRef();
 	}
-	return InternalAddRef();
+	return this->InternalAddRef();
 }
 
 template <class Contained>
 inline STDMETHODIMP_(ULONG) CComPolyObjectSharedRef<Contained>::Release()
 {
-	ULONG l = InternalRelease();
+	ULONG l = this->InternalRelease();
 	if (!l)
 	{
 		m_contained.ReleaseAll();
@@ -251,13 +251,13 @@ inline STDMETHODIMP CComObjectRefCount<T, ThreadModel>::
 template <class T, class ThreadModel>
 inline STDMETHODIMP_(ULONG) CComObjectRefCount<T, ThreadModel>::AddRef()
 {
-	return InternalAddRef();
+	return this->InternalAddRef();
 }
 
 template <class T, class ThreadModel>
 inline STDMETHODIMP_(ULONG) CComObjectRefCount<T, ThreadModel>::Release()
 {
-	ULONG l = InternalRelease();
+	ULONG l = this->InternalRelease();
 	if (l == 0)
 	{
 		T* pT = reinterpret_cast<T*>(
