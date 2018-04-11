@@ -98,7 +98,7 @@ inline HRESULT CComClassFactoryProtocol::SetTargetClassFactory(
 			// LockServer(FALSE) is assumed to always succeed. Otherwise,
 			// it is impossible to implement correct semantics
 			HRESULT hr1 = m_spTargetCF->LockServer(FALSE);
-			hr1;
+			(hr1);
 			ATLASSERT(SUCCEEDED(hr1));
 		}
 		m_spTargetCF = pCF;
@@ -128,7 +128,7 @@ inline void CComClassFactoryProtocol::FinalRelease()
 	{
 		// LockServer(FALSE) is assumed to always succeed.
 		HRESULT hr = m_spTargetCF->LockServer(FALSE);
-		hr;
+		(hr);
 		ATLASSERT(SUCCEEDED(hr));
 
 		m_spTargetCF.Release();
