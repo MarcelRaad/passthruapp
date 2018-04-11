@@ -236,16 +236,16 @@ public:
 		/* [out] */		 DWORD *pdwReserved);
 
 public:
-	CComPtr<IUnknown> m_spInternetProtocolUnk;
-	CComPtr<IInternetProtocol> m_spInternetProtocol;
-	CComPtr<IInternetProtocolEx> m_spInternetProtocolEx;
-	CComPtr<IInternetProtocolInfo> m_spInternetProtocolInfo;
-	CComPtr<IInternetPriority> m_spInternetPriority;
-	CComPtr<IInternetThreadSwitch> m_spInternetThreadSwitch;
-	CComPtr<IWinInetInfo> m_spWinInetInfo;
-	CComPtr<IWinInetHttpInfo> m_spWinInetHttpInfo;
-	CComPtr<IWinInetCacheHints> m_spWinInetCacheHints;
-	CComPtr<IWinInetCacheHints2> m_spWinInetCacheHints2;
+	ATL::CComPtr<IUnknown> m_spInternetProtocolUnk;
+	ATL::CComPtr<IInternetProtocol> m_spInternetProtocol;
+	ATL::CComPtr<IInternetProtocolEx> m_spInternetProtocolEx;
+	ATL::CComPtr<IInternetProtocolInfo> m_spInternetProtocolInfo;
+	ATL::CComPtr<IInternetPriority> m_spInternetPriority;
+	ATL::CComPtr<IInternetThreadSwitch> m_spInternetThreadSwitch;
+	ATL::CComPtr<IWinInetInfo> m_spWinInetInfo;
+	ATL::CComPtr<IWinInetHttpInfo> m_spWinInetHttpInfo;
+	ATL::CComPtr<IWinInetCacheHints> m_spWinInetCacheHints;
+	ATL::CComPtr<IWinInetCacheHints2> m_spWinInetCacheHints2;
 };
 
 class ATL_NO_VTABLE IInternetProtocolSinkImpl :
@@ -333,18 +333,18 @@ protected:
 		IInternetProtocol* pTargetProtocol);
 
 public:
-	CComPtr<IInternetProtocolSink> m_spInternetProtocolSink;
-	CComPtr<IServiceProvider> m_spServiceProvider;
-	CComPtr<IInternetBindInfo> m_spInternetBindInfo;
-	CComPtr<IInternetBindInfoEx> m_spInternetBindInfoEx;
-	CComPtr<IUriContainer> m_spUriContainer;
+	ATL::CComPtr<IInternetProtocolSink> m_spInternetProtocolSink;
+	ATL::CComPtr<IServiceProvider> m_spServiceProvider;
+	ATL::CComPtr<IInternetBindInfo> m_spInternetBindInfo;
+	ATL::CComPtr<IInternetBindInfoEx> m_spInternetBindInfoEx;
+	ATL::CComPtr<IUriContainer> m_spUriContainer;
 
-	CComPtr<IInternetProtocol> m_spTargetProtocol;
+	ATL::CComPtr<IInternetProtocol> m_spTargetProtocol;
 };
 
-template <class ThreadModel = CComMultiThreadModel>
+template <class ThreadModel = ATL::CComMultiThreadModel>
 class CInternetProtocolSinkTM :
-	public CComObjectRootEx<ThreadModel>,
+	public ATL::CComObjectRootEx<ThreadModel>,
 	public IInternetProtocolSinkImpl
 {
 private:
@@ -370,7 +370,7 @@ public:
 
 typedef CInternetProtocolSinkTM<> CInternetProtocolSink;
 
-template <class T, class ThreadModel = CComMultiThreadModel>
+template <class T, class ThreadModel = ATL::CComMultiThreadModel>
 class CInternetProtocolSinkWithSP :
 	public CInternetProtocolSinkTM<ThreadModel>
 {
@@ -401,9 +401,9 @@ public:
 			GetUnknown(), riid, ppvObject, GetClientServiceProvider()); \
 	}
 
-template <class StartPolicy, class ThreadModel = CComMultiThreadModel>
+template <class StartPolicy, class ThreadModel = ATL::CComMultiThreadModel>
 class ATL_NO_VTABLE CInternetProtocol :
-	public CComObjectRootEx<ThreadModel>,
+	public ATL::CComObjectRootEx<ThreadModel>,
 	public IInternetProtocolImpl,
 	public StartPolicy
 {

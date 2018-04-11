@@ -33,7 +33,7 @@ struct ChooseCreatorClass
 } // end namespace PassthroughAPP::Detail
 
 class ATL_NO_VTABLE CComClassFactoryProtocol :
-	public CComClassFactory
+	public ATL::CComClassFactory
 {
 	typedef CComClassFactory BaseClass;
 public:
@@ -48,16 +48,16 @@ public:
 
 	void FinalRelease();
 private:
-	CComPtr<IClassFactory> m_spTargetCF;
+	ATL::CComPtr<IClassFactory> m_spTargetCF;
 };
 
 template <class Factory, class Protocol,
-	class FactoryComObject = CComObjectNoLock<Factory> >
+	class FactoryComObject = ATL::CComObjectNoLock<Factory> >
 struct CMetaFactory
 {
 	typedef
-		CComCreator2<CComCreator<CComObject<Protocol> >,
-			CComCreator<CComAggObject<Protocol> > >
+		ATL::CComCreator2<ATL::CComCreator<ATL::CComObject<Protocol> >,
+			ATL::CComCreator<ATL::CComAggObject<Protocol> > >
 	DefaultCreatorClass;
 
 	typedef typename

@@ -55,7 +55,7 @@ private:
 template <class Contained>
 class CComPolyObjectSharedRef :
 	public IUnknown,
-	public CComObjectRootEx<typename Contained::_ThreadModel::ThreadModelNoCS>
+	public ATL::CComObjectRootEx<typename Contained::_ThreadModel::ThreadModelNoCS>
 {
 public:
 	typedef Contained ContainedObject;
@@ -86,7 +86,7 @@ public:
 	Contained* GetContainedObject();
 	static CComPolyObjectSharedRef* GetThisObject(const Contained* pContained);
 
-	CComContainedObject<Contained> m_contained;
+	ATL::CComContainedObject<Contained> m_contained;
 private:
 	IUnknown* m_punkRefCount;
 };
@@ -94,7 +94,7 @@ private:
 template <class T, class ThreadModel>
 class CComObjectRefCount :
 	public IUnknown,
-	public CComObjectRootEx<typename ThreadModel::ThreadModelNoCS>
+	public ATL::CComObjectRootEx<typename ThreadModel::ThreadModelNoCS>
 {
 	STDMETHODIMP QueryInterface(REFIID iid, void** ppvObject);
 	STDMETHODIMP_(ULONG) AddRef();
@@ -146,7 +146,7 @@ public:
 		::PassthroughAPP::CComPolyObjectSharedRef<Protocol>, \
 		::PassthroughAPP::CComObjectSharedRef<Sink> > \
 	ComObjectClass; \
-	typedef CComCreator<ComObjectClass> _CreatorClass;
+	typedef ATL::CComCreator<ComObjectClass> _CreatorClass;
 
 
 template <class Protocol, class Sink>

@@ -73,7 +73,7 @@ inline HRESULT WINAPI QueryInterfacePassthrough(void* pv, REFIID riid,
 	HRESULT hr = S_OK;
 	if (!*ppUnk)
 	{
-		CComPtr<IUnknown> spUnk;
+		ATL::CComPtr<IUnknown> spUnk;
 		hr = punkTarget->QueryInterface(riid,
 			reinterpret_cast<void**>(&spUnk));
 		ATLASSERT(FAILED(hr) || spUnk != 0);
@@ -95,7 +95,7 @@ inline HRESULT WINAPI QueryInterfacePassthrough(void* pv, REFIID riid,
 	}
 	if (SUCCEEDED(hr))
 	{
-		CComPtr<IUnknown> spItf = reinterpret_cast<IUnknown*>(
+		ATL::CComPtr<IUnknown> spItf = reinterpret_cast<IUnknown*>(
 			static_cast<char*>(pv) + data.offsetItf);
 		*ppv = spItf.Detach();
 	}
@@ -113,7 +113,7 @@ inline HRESULT WINAPI QueryInterfaceDebug(void* pv, REFIID riid,
 	ATLASSERT(ppv != 0);
 	ATLASSERT(punkTarget != 0);
 
-	CComPtr<IUnknown> spUnk;
+	ATL::CComPtr<IUnknown> spUnk;
 	HRESULT hr = punkTarget->QueryInterface(riid,
 		reinterpret_cast<void**>(&spUnk));
 	ATLASSERT(FAILED(hr) || spUnk != 0);
@@ -134,7 +134,7 @@ inline HRESULT QueryServicePassthrough(REFGUID guidService,
 	IServiceProvider* pClientProvider)
 {
 	ATLASSERT(punkThis != 0);
-	CComPtr<IUnknown> spDummy;
+	ATL::CComPtr<IUnknown> spDummy;
 	HRESULT hr = pClientProvider ?
 		pClientProvider->QueryService(guidService, riid,
 			reinterpret_cast<void**>(&spDummy)) :
@@ -540,7 +540,7 @@ inline HRESULT IInternetProtocolSinkImpl::QueryServiceFromClient(
 	REFGUID guidService, REFIID riid, void** ppvObject)
 {
 	HRESULT hr = S_OK;
-	CComPtr<IServiceProvider> spClientProvider = m_spServiceProvider;
+	ATL::CComPtr<IServiceProvider> spClientProvider = m_spServiceProvider;
 	if (!spClientProvider)
 	{
 		hr = m_spInternetProtocolSink->QueryInterface(&spClientProvider);

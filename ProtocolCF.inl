@@ -26,11 +26,11 @@ inline STDMETHODIMP CComClassFactoryProtocol::CreateInstance(
 	}
 	*ppvObj = 0;
 
-	CComPtr<IUnknown> spUnkTarget;
+	ATL::CComPtr<IUnknown> spUnkTarget;
 	HRESULT hr = CreateInstanceTarget(&spUnkTarget);
 	ATLASSERT(SUCCEEDED(hr) && spUnkTarget != 0);
 
-	CComPtr<IUnknown> spUnkObject;
+	ATL::CComPtr<IUnknown> spUnkObject;
 	if (SUCCEEDED(hr))
 	{
 		hr = BaseClass::CreateInstance(punkOuter, riid,
@@ -40,7 +40,7 @@ inline STDMETHODIMP CComClassFactoryProtocol::CreateInstance(
 
 	if (SUCCEEDED(hr))
 	{
-		CComPtr<IPassthroughObject> spPassthroughObj;
+		ATL::CComPtr<IPassthroughObject> spPassthroughObj;
 		hr = spUnkObject->QueryInterface(&spPassthroughObj);
 		ATLASSERT(SUCCEEDED(hr) && spPassthroughObj != 0);
 		if (SUCCEEDED(hr))
@@ -67,7 +67,7 @@ inline HRESULT CComClassFactoryProtocol::CreateInstanceTarget(
 	}
 	*ppTargetProtocol = 0;
 
-	CComPtr<IClassFactory> spTargetCF;
+	ATL::CComPtr<IClassFactory> spTargetCF;
 	HRESULT hr = GetTargetClassFactory(&spTargetCF);
 	ATLASSERT(SUCCEEDED(hr) && spTargetCF != 0);
 	if (SUCCEEDED(hr))
@@ -109,7 +109,7 @@ inline HRESULT CComClassFactoryProtocol::SetTargetClassFactory(
 inline HRESULT CComClassFactoryProtocol::SetTargetCLSID(REFCLSID clsid,
 	DWORD clsContext)
 {
-	CComPtr<IClassFactory> spTargetCF;
+	ATL::CComPtr<IClassFactory> spTargetCF;
 	HRESULT hr = CoGetClassObject(clsid, clsContext, 0, IID_IClassFactory,
 		reinterpret_cast<void**>(&spTargetCF));
 	ATLASSERT(SUCCEEDED(hr) && spTargetCF != 0);

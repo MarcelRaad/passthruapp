@@ -375,8 +375,8 @@ inline HRESULT CustomSinkStartPolicy<Protocol, Sink>::OnStart(LPCWSTR szUrl,
 	HRESULT hr = pSink->OnStart(szUrl, pOIProtSink, pOIBindInfo, grfPI,
 		dwReserved, pTargetProtocol);
 
-	CComPtr<IInternetProtocolSink> spSink;
-	CComPtr<IInternetBindInfo> spBindInfo;
+	ATL::CComPtr<IInternetProtocolSink> spSink;
+	ATL::CComPtr<IInternetBindInfo> spBindInfo;
 	if (SUCCEEDED(hr))
 	{
 		hr = pSink->QueryInterface(IID_IInternetProtocolSink,
@@ -409,8 +409,8 @@ inline HRESULT CustomSinkStartPolicy<Protocol, Sink>::OnStartEx(IUri* pUri,
 	HRESULT hr = pSink->OnStartEx(pUri, pOIProtSink, pOIBindInfo, grfPI,
 		dwReserved, pTargetProtocol);
 
-	CComPtr<IInternetProtocolSink> spSink;
-	CComPtr<IInternetBindInfo> spBindInfo;
+	ATL::CComPtr<IInternetProtocolSink> spSink;
+	ATL::CComPtr<IInternetBindInfo> spBindInfo;
 	if (SUCCEEDED(hr))
 	{
 		hr = pSink->QueryInterface(IID_IInternetProtocolSink,
